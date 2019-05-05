@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">BigData</string>
+    <string name="slogan">Get a Big Data Expert From Anywhere</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="accounts">Accounts</string>
+    <string name="skip">Skip</string>
+    <string name="signup_prompt">Sign up for a new account</string>
+    <string name="sign_prompt">Sign in to your account</string>
+    <string name="email_hint">Email...</string>
+    <string name="password_hint">Password...</string>
+    <string name="sign_in">Sign In</string>
+    <string name="create_acc">Create Account</string>
+    <string name="create_acc_quiz">Don\'t have an account?</string>
+    <string name="signin_acc_quiz">Already have an account?</string>
+    <string name="sign_up_tv_text">Sign up!</string>
+    <string name="sign_in_tv_text">Sign in!</string>
+    <string name="profile_image">Profile Image</string>
+    <string name="change_image">Change Image</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="full_name_hint">Full Name...</string>
+    <string name="username_hint">Username...</string>
+    <string name="current_location_hint">Current Location...</string>
+    <string name="group_icon">Group Icon</string>
+    <string name="person_icon">Person Icon</string>
+    <string name="contact_hint">Contact...</string>
+    <string name="street_hint">Street...</string>
+    <string name="po_box_hint">Po Box ...</string>
+    <string name="city_hint">City...</string>
+    <string name="state_hint">State...</string>
+    <string name="zipcode_hint">Zipcode...</string>
+    <string name="country_hint">Country...</string>
+    <string name="website_hint">Website...</string>
+    <string name="phone_icon">Phone Icon</string>
+    <string name="location_icon">Location Icon</string>
+    <string name="save_account_details">Save Account Details</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="sign_out">Sign Out</string>
+
+    <string-array name="groups">
+        <item>-- Choose Group--</item>
+        <item>Data Analyst</item>
+        <item>Company</item>
+    </string-array>
+
+    <string name="sign_in_as">Sign In As</string>
+    <string name="big_data_analyst">Big Data Analyst</string>
+    <string name="company">Company</string>
+    <string name="username">Username</string>
+    <string name="message_hint">Message...</string>
+    <string name="send_icon">Send Icon</string>
+    <string name="dummy_message">Dummy Message...</string>
+    <string name="change_profile_pic">Change Profile Pic</string>
+
+</resources>

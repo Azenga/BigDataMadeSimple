@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "312657728557",
+    "firebase_url": "https://bigdatamadesimple-e0d1e.firebaseio.com",
+    "project_id": "bigdatamadesimple-e0d1e",
+    "storage_bucket": "bigdatamadesimple-e0d1e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:312657728557:android:b4fcf53bfbd37d4b",
+        "android_client_info": {
+          "package_name": "com.shadow.bigdatamadesimple"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "312657728557-hccqg5qptdu1mu5a0s2q00lm2phqiehi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shadow.bigdatamadesimple",
+            "certificate_hash": "8b7732adc54798f800c595d4cea8d6dabd3c0c59"
+          }
+        },
+        {
+          "client_id": "312657728557-jqb0mdhd5epv32cenqolv1d1577t9qhv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvEhCPAwPcMY4sxVS9rlH6gRWzRhzO4jI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "312657728557-jqb0mdhd5epv32cenqolv1d1577t9qhv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
