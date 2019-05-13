@@ -17,7 +17,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.shadow.bigdatamadesimple.R;
-import com.shadow.bigdatamadesimple.adapters.AnalystAdapter;
+import com.shadow.bigdatamadesimple.adapters.UserAdapter;
 import com.shadow.bigdatamadesimple.models.Message;
 import com.shadow.bigdatamadesimple.models.User;
 
@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChatsFragment extends Fragment {
+
     private static final String TAG = "ChatsFragment";
 
     private RecyclerView chattedAnalystsRV;
@@ -62,7 +63,6 @@ public class ChatsFragment extends Fragment {
                 .addSnapshotListener(
                         (queryDocumentSnapshots, e) -> {
                             if (e != null) {
-                                Toast.makeText(getActivity(), "A fatal error occurred", Toast.LENGTH_SHORT).show();
                                 Log.e(TAG, "onViewCreated: Failed reading messages", e);
                                 return;
                             }
@@ -77,8 +77,10 @@ public class ChatsFragment extends Fragment {
                                     if (msg.getSender().equals(myUid)) {
                                         userUids.add(msg.getReceiver());
                                     }
-                                    if (msg.getReceiver().equals(myUid)) {
-                                        userUids.add(msg.getSender());
+                                    if(msg.getReceiver() != null) {
+                                        if (msg.getReceiver().equals(myUid)) {
+                                            userUids.add(msg.getSender());
+                                        }
                                     }
                                 }
 
@@ -95,7 +97,6 @@ public class ChatsFragment extends Fragment {
                 .addSnapshotListener(
                         (queryDocumentSnapshots, e) -> {
                             if (e != null) {
-                                Toast.makeText(getActivity(), "A fatal error occurred", Toast.LENGTH_SHORT).show();
                                 Log.e(TAG, "readUsers: getting users error", e);
                                 return;
                             }
@@ -118,7 +119,7 @@ public class ChatsFragment extends Fragment {
                                     }
                                 }
 
-                                AnalystAdapter adapter = new AnalystAdapter(getActivity(), userList);
+                                UserAdapter adapter = new UserAdapter(getActivity(), userList, true);
                                 chattedAnalystsRV.setAdapter(adapter);
 
                             }

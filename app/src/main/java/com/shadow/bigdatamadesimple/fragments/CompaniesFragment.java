@@ -23,17 +23,15 @@ import com.shadow.bigdatamadesimple.models.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnalystsFragment extends Fragment {
-
-    private static final String TAG = "AnalystsFragment";
-
+public class CompaniesFragment extends Fragment {
+    private static final String TAG = "CompaniesFragment";
     private FirebaseFirestore mDb;
     private FirebaseAuth mAuth;
 
 
     private List<User> users;
 
-    public AnalystsFragment() {
+    public CompaniesFragment() {
         mDb = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         users = new ArrayList<>();
@@ -41,7 +39,7 @@ public class AnalystsFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_analysts, container, false);
@@ -56,16 +54,16 @@ public class AnalystsFragment extends Fragment {
 
         //Getting the users
         mDb.collection("users")
-                .whereEqualTo("group", "analyst")
+                .whereEqualTo("group", "company")
                 .addSnapshotListener(
                         (queryDocumentSnapshots, e) -> {
                             if (e != null) {
-                                Log.e(TAG, "onViewCreated: getting users error", e);
+                                Log.e(TAG, "onViewCreated: getting companies error", e);
                                 return;
                             }
 
                             if (queryDocumentSnapshots.isEmpty()) {
-                                Toast.makeText(getActivity(), "No analysts yet", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "No companies yet", Toast.LENGTH_SHORT).show();
                             } else {
                                 users.clear();
                                 for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
@@ -76,8 +74,9 @@ public class AnalystsFragment extends Fragment {
                                     }
                                 }
 
-                                UserAdapter adapter = new UserAdapter(getActivity(), users, false);
+                                UserAdapter adapter = new UserAdapter(getActivity(), users, true);
                                 analystRV.setAdapter(adapter);
+
                             }
                         }
                 );

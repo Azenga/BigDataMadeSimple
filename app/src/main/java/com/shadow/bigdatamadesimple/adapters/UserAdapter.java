@@ -15,40 +15,43 @@ import android.widget.Toast;
 
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.shadow.bigdatamadesimple.AnalystProfile;
 import com.shadow.bigdatamadesimple.MessageActivity;
 import com.shadow.bigdatamadesimple.R;
+import com.shadow.bigdatamadesimple.UserProfileActivity;
 import com.shadow.bigdatamadesimple.models.User;
 
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class AnalystAdapter extends RecyclerView.Adapter<AnalystAdapter.AnalystHolder> {
+public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
 
-    public static final String TAG = "AnalystAdapter";
+    public static final String TAG = "UserAdapter";
     private List<User> mUserList;
     private Context mContext;
+    private boolean mChats;
 
     private StorageReference mRef;
 
-    public AnalystAdapter(Context context, List<User> userList) {
+    public UserAdapter(Context context, List<User> userList, boolean chats) {
         mContext = context;
         mUserList = userList;
+        mChats = chats;
         mRef = FirebaseStorage.getInstance().getReference("avatars");
     }
 
-
     @NonNull
     @Override
-    public AnalystHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public UserHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         View view = LayoutInflater.from(mContext).inflate(R.layout.single_user_item, viewGroup, false);
 
-        return new AnalystHolder(view);
+        return new UserHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AnalystHolder analystHolder, int position) {
+    public void onBindViewHolder(@NonNull UserHolder analystHolder, int position) {
         final User user = mUserList.get(position);
 
         analystHolder.usernameTV.setText(user.getFullName());
@@ -78,10 +81,23 @@ public class AnalystAdapter extends RecyclerView.Adapter<AnalystAdapter.AnalystH
         //Setting OnClickListener
         analystHolder.mView.setOnClickListener(
                 view -> {
+                    if (mChats) {
+                        Intent messageIntent = new Intent(mContext, MessageActivity.class);
+                        messageIntent.putExtra(MessageActivity.USER_UID_PARAM, user.getUid());
+                        mContext.startActivity(messageIntent);
+                    } else {
 
-                    Intent messageIntent = new Intent(mContext, MessageActivity.class);
-                    messageIntent.putExtra(MessageActivity.USER_UID_PARAM, user.getUid());
-                    mContext.startActivity(messageIntent);
+                        if(user.getGroup().equalsIgnoreCase("analyst")){
+                            Intent profileIntent = new Intent(mContext, AnalystProfile.class);
+                            profileIntent.putExtra(MessageActivity.USER_UID_PARAM, user.getUid());
+                            mContext.startActivity(profileIntent);
+                        }else{
+                            Intent profileIntent = new Intent(mContext, UserProfileActivity.class);
+                            profileIntent.putExtra(MessageActivity.USER_UID_PARAM, user.getUid());
+                            mContext.startActivity(profileIntent);
+                        }
+                    }
+
                 }
         );
     }
@@ -91,12 +107,12 @@ public class AnalystAdapter extends RecyclerView.Adapter<AnalystAdapter.AnalystH
         return mUserList.size();
     }
 
-    public static class AnalystHolder extends RecyclerView.ViewHolder {
+    public static class UserHolder extends RecyclerView.ViewHolder {
         View mView;
         CircleImageView profileCIV;
         TextView usernameTV;
 
-        public AnalystHolder(@NonNull View itemView) {
+        public UserHolder(@NonNull View itemView) {
             super(itemView);
 
             mView = itemView;

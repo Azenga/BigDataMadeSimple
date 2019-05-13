@@ -13,7 +13,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class RegisterActivity extends AppCompatActivity {
+
     private static final String TAG = "RegisterActivity";
     public static final String USER_GROUP = "user-group";
 
@@ -76,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
             pwdTIET.setError("Password is Required");
             pwdTIET.requestFocus();
             return;
-        }
+        } else if (inValidPassword(pwd)) return;
 
         progressDialog.setTitle("Creating Account");
         progressDialog.setMessage("Please Wait...");
@@ -101,7 +105,24 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                 );
 
+    }
 
+    private boolean inValidPassword(String pwd) {
+
+        Pattern pattern = Pattern.compile("^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8,}$");
+        Matcher matcher = pattern.matcher(pwd);
+
+        if (pwd.length() < 8) {
+            pwdTIET.setError("The password should be at least 8 characters");
+            pwdTIET.requestFocus();
+            return true;
+        } else if (!matcher.matches()) {
+            pwdTIET.setError("The password should contain a special character, a digit and an uppercase letter");
+            pwdTIET.requestFocus();
+            return true;
+        }
+
+        return false;
     }
 
 }

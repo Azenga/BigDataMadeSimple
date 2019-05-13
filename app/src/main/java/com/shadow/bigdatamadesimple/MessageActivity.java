@@ -94,12 +94,14 @@ public class MessageActivity extends AppCompatActivity {
                                 for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
                                     Message msg = snapshot.toObject(Message.class);
 
-                                    if (
-                                            (msg.getSender().equals(myUid) && msg.getReceiver().equals(receiverId))
-                                                    ||
-                                                    (msg.getSender().equals(receiverId) && msg.getReceiver().equals(myUid))
-                                    ) {
-                                        messages.add(msg);
+                                    if (msg.getReceiver() != null) {
+                                        if (
+                                                (msg.getSender().equals(myUid) && msg.getReceiver().equals(receiverId))
+                                                        ||
+                                                        (msg.getSender().equals(receiverId) && msg.getReceiver().equals(myUid))
+                                        ) {
+                                            messages.add(msg);
+                                        }
                                     }
                                 }
                                 Toast.makeText(this, String.valueOf(messages.size()), Toast.LENGTH_SHORT).show();
@@ -146,6 +148,11 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     private void sendMessage(Map<String, Object> msg) {
+        if (mReceiverUid == null) {
+            Toast.makeText(this, "No Receiver", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         mDb.collection("chats")
                 .add(msg)
                 .addOnCompleteListener(
@@ -193,7 +200,6 @@ public class MessageActivity extends AppCompatActivity {
                 .addSnapshotListener(
                         (documentSnapshot, e) -> {
                             if (e != null) {
-                                Toast.makeText(this, "A fatal error occurred", Toast.LENGTH_SHORT).show();
                                 Log.e(TAG, "checkUserDetails: Failed", e);
                                 return;
                             }

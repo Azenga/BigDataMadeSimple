@@ -50,7 +50,6 @@ public class AddProfileImageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_profile_image);
-
         initComponents();
 
         mAuth = FirebaseAuth.getInstance();
@@ -61,7 +60,11 @@ public class AddProfileImageActivity extends AppCompatActivity {
 
 
         changeImageBtn.setOnClickListener(view -> chooseImage());
-        skipUploadProfileTV.setOnClickListener(view -> startActivity(new Intent(this, MainActivity.class)));
+        skipUploadProfileTV.setOnClickListener(view -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra(RegisterActivity.USER_GROUP, mGroup);
+            startActivity(intent);
+        });
 
         uploadImageBtn.setOnClickListener(view -> uploadImage());
     }
@@ -225,7 +228,6 @@ public class AddProfileImageActivity extends AppCompatActivity {
                 )
                 .addOnFailureListener(
                         e -> {
-                            Toast.makeText(this, "Error getting Image", Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                             Log.e(TAG, "populateImageView: Failed", e);
                         }

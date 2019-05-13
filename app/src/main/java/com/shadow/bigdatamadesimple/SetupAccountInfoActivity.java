@@ -9,12 +9,19 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.shadow.bigdatamadesimple.models.User;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
 
 public class SetupAccountInfoActivity extends AppCompatActivity {
     private static final String TAG = "SetupAccountInfoActivit";
@@ -24,7 +31,8 @@ public class SetupAccountInfoActivity extends AppCompatActivity {
     private String mGroup = null;
 
     //Widgets
-    private TextInputEditText nameTIET, phoneTIET, streetTIET, poboxTIET, cityTIET, stateTIET, zipcodeTIET, countryTIET, websiteTIET;
+    private TextInputEditText nameTIET, phoneTIET, streetTIET, poboxTIET, cityTIET, stateTIET, zipcodeTIET, websiteTIET;
+    private Spinner countrySpinner;
     private ProgressDialog progressDialog;
 
     @Override
@@ -55,10 +63,29 @@ public class SetupAccountInfoActivity extends AppCompatActivity {
         cityTIET = findViewById(R.id.city_txt);
         stateTIET = findViewById(R.id.state_txt);
         zipcodeTIET = findViewById(R.id.zipcode_txt);
-        countryTIET = findViewById(R.id.country_txt);
         websiteTIET = findViewById(R.id.website);
 
         progressDialog = new ProgressDialog(this);
+
+        countrySpinner = findViewById(R.id.country_spinner);
+
+        Locale[] locales = Locale.getAvailableLocales();
+
+        List<String> countries = new ArrayList<>();
+
+        for (Locale locale : locales) {
+            String country = locale.getDisplayCountry();
+
+            if ((country.trim().length() > 0) && !countries.contains(country.trim())) {
+                countries.add(country.trim());
+            }
+        }
+
+        Collections.sort(countries);
+
+        ArrayAdapter<String> countryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, countries);
+        countryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        countrySpinner.setAdapter(countryAdapter);
     }
 
     @Override
@@ -87,7 +114,7 @@ public class SetupAccountInfoActivity extends AppCompatActivity {
         String city = String.valueOf(cityTIET.getText());
         String state = String.valueOf(stateTIET.getText());
         String zipcode = String.valueOf(zipcodeTIET.getText());
-        String country = String.valueOf(countryTIET.getText());
+        String country = String.valueOf(countrySpinner.getSelectedItem());
         String website = String.valueOf(websiteTIET.getText());
 
         if (TextUtils.isEmpty(name)) {
@@ -138,7 +165,6 @@ public class SetupAccountInfoActivity extends AppCompatActivity {
         if (user.getCity() != null) cityTIET.setText(user.getCity());
         if (user.getState() != null) stateTIET.setText(user.getState());
         if (user.getZipcode() != null) zipcodeTIET.setText(user.getZipcode());
-        if (user.getCountry() != null) countryTIET.setText(user.getCountry());
         if (user.getWebsite() != null) websiteTIET.setText(user.getWebsite());
 
         progressDialog.dismiss();
@@ -149,7 +175,6 @@ public class SetupAccountInfoActivity extends AppCompatActivity {
                 .addSnapshotListener(
                         (documentSnapshot, e) -> {
                             if (e != null) {
-                                Toast.makeText(this, "A fatal error occurred", Toast.LENGTH_SHORT).show();
                                 Log.e(TAG, "checkUserDetails: Failed", e);
                                 progressDialog.dismiss();
                                 return;

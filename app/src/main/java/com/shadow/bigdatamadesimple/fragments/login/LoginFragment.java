@@ -9,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -131,8 +130,7 @@ public class LoginFragment extends Fragment {
                                     Toast.makeText(getActivity(), "I just hope to never see this", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
-                                Toast.makeText(getActivity(), "Sorry, signin failed try again later", Toast.LENGTH_SHORT).show();
-                                Log.e(TAG, "login: Failed", task.getException());
+                                Toast.makeText(getActivity(), task.getException().getLocalizedMessage(), Toast.LENGTH_LONG).show();
                             }
 
                             progressDialog.dismiss();

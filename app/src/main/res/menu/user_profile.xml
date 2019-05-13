@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_rate"
+        android:orderInCategory="100"
+        android:title="@string/rate_analyst" />
+    <item
+        android:id="@+id/nav_dummy"
+        android:orderInCategory="101"
+        android:title="@string/dummy_item" />
+</menu>

@@ -3,5 +3,14 @@
     <color name="colorPrimary">#00acee</color>
     <color name="colorPrimaryDark">#008dcd</color>
     <color name="colorAccent">#ff5311</color>
+    <color name="colorAccentTransparent">#80ff5311</color>
     <color name="colorTransWhite">#80ffffff</color>
+
+    <color name="shadow_1">#d4d4d4</color>
+    <color name="shadow_2">#dddddd</color>
+    <color name="card_background">#ffffff</color>
+    <color name="color1">#fff</color>
+    <color name="selectedTile">#222124</color>
+    <color name="color2">#69f0ae</color>
+    <color name="color3">#7c4dff</color>
 </resources>

@@ -1,6 +1,8 @@
 package com.shadow.bigdatamadesimple;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +17,7 @@ import com.shadow.bigdatamadesimple.adapters.ViewPagerAdapter;
 import com.shadow.bigdatamadesimple.fragments.AnalystsFragment;
 import com.shadow.bigdatamadesimple.fragments.BlogPostFragment;
 import com.shadow.bigdatamadesimple.fragments.ChatsFragment;
+import com.shadow.bigdatamadesimple.fragments.CompaniesFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,15 +38,36 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        if (getSupportActionBar() == null) setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) getSupportActionBar().setTitle("Big Data Analysts");
-
         mGroup = getIntent().getStringExtra(RegisterActivity.USER_GROUP);
+
+        SharedPreferences preferences = getSharedPreferences("user_details", Context.MODE_PRIVATE);
+
+        if (mGroup == null) {
+            mGroup = preferences.getString("group", "");
+        } else {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("group", mGroup);
+            editor.apply();
+        }
+
+        if (getSupportActionBar() == null) setSupportActionBar(toolbar);
+
+        if (mGroup.equalsIgnoreCase("company")) {
+            if (getSupportActionBar() != null) getSupportActionBar().setTitle("Big Data Analysts");
+        } else {
+            if (getSupportActionBar() != null)
+                getSupportActionBar().setTitle("Big Data Made Simple");
+        }
+
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new ChatsFragment(), "Chats");
         adapter.addFragment(new BlogPostFragment(), "Posts");
-        adapter.addFragment(new AnalystsFragment(), "Analysts");
+        if (mGroup.equals("company")) {
+            adapter.addFragment(new AnalystsFragment(), "Analysts");
+        } else if (mGroup.equals("analyst")) {
+            adapter.addFragment(new CompaniesFragment(), "Companies");
+        }
 
         container.setAdapter(adapter);
 
