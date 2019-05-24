@@ -9,7 +9,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -35,6 +37,8 @@ public class SetupAccountInfoActivity extends AppCompatActivity {
     private Spinner countrySpinner;
     private ProgressDialog progressDialog;
 
+    private Button gotoAddMoreDetailsBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +55,9 @@ public class SetupAccountInfoActivity extends AppCompatActivity {
 
         initComponents();
 
-        Toast.makeText(this, mGroup, Toast.LENGTH_SHORT).show();
+        if (mGroup.equalsIgnoreCase("company")) gotoAddMoreDetailsBtn.setVisibility(View.GONE);
+
+        gotoAddMoreDetailsBtn.setOnClickListener(view -> startActivity(new Intent(this, AddMoreDetailsActivity.class)));
 
     }
 
@@ -64,6 +70,8 @@ public class SetupAccountInfoActivity extends AppCompatActivity {
         stateTIET = findViewById(R.id.state_txt);
         zipcodeTIET = findViewById(R.id.zipcode_txt);
         websiteTIET = findViewById(R.id.website);
+
+        gotoAddMoreDetailsBtn = findViewById(R.id.goto_add_more_details_btn);
 
         progressDialog = new ProgressDialog(this);
 
@@ -215,5 +223,9 @@ public class SetupAccountInfoActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    public void gotoAddMoreDetailsActivty(View view) {
+
     }
 }

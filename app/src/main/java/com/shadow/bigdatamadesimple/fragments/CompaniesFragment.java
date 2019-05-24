@@ -74,7 +74,7 @@ public class CompaniesFragment extends Fragment {
                                     }
                                 }
 
-                                UserAdapter adapter = new UserAdapter(getActivity(), users, true);
+                                UserAdapter adapter = new UserAdapter(getActivity(), users, false);
                                 analystRV.setAdapter(adapter);
 
                             }

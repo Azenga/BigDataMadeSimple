@@ -27,9 +27,9 @@ public class UserProfileActivity extends AppCompatActivity {
     private static final String TAG = "UserProfileActivity";
 
     private Toolbar toolbar;
-    private TextView recommendationTV, hiresTV, qualifications;
+    private TextView nameTV, contactTV, locationTV, webisteTV;
     private CircleImageView profileCIV;
-    private Button messageBtn, hireBtn;
+    private Button messageBtn;
 
     private String userUid = null;
 
@@ -49,11 +49,12 @@ public class UserProfileActivity extends AppCompatActivity {
 
         if (getSupportActionBar() == null) setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Username");
+            getSupportActionBar().setTitle("");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
         messageBtn.setOnClickListener(view -> {
+
             Intent intent = new Intent(this, MessageActivity.class);
             intent.putExtra(MessageActivity.USER_UID_PARAM, userUid);
             startActivity(intent);
@@ -66,12 +67,14 @@ public class UserProfileActivity extends AppCompatActivity {
         mDb = FirebaseFirestore.getInstance();
         mRef = FirebaseStorage.getInstance().getReference("avatars");
 
-        recommendationTV = findViewById(R.id.recommendation_tv);
-        hiresTV = findViewById(R.id.hires_tv);
-        qualifications = findViewById(R.id.qualifications);
         profileCIV = findViewById(R.id.profile_civ);
+
+        nameTV = findViewById(R.id.name_tv);
+        contactTV = findViewById(R.id.contact_tv);
+        locationTV = findViewById(R.id.location_tv);
+        webisteTV = findViewById(R.id.website_tv);
+
         messageBtn = findViewById(R.id.message_btn);
-        hireBtn = findViewById(R.id.hire_btn);
     }
 
     @Override
@@ -93,8 +96,8 @@ public class UserProfileActivity extends AppCompatActivity {
         }
     }
 
-    private void getUserDetails(String uid) {
-        mDb.document("users/" + uid)
+    private void getUserDetails() {
+        mDb.document("users/" + userUid)
                 .addSnapshotListener(
                         (documentSnapshot, e) -> {
                             if (e != null) {
@@ -118,6 +121,7 @@ public class UserProfileActivity extends AppCompatActivity {
         }
 
         if (user.getImageName() != null) {
+
             StorageReference profilePicRef = mRef.child(user.getImageName());
 
             final long MB = 1024 * 1024;
@@ -129,12 +133,15 @@ public class UserProfileActivity extends AppCompatActivity {
                                 profileCIV.setImageBitmap(bitmap);
                             }
                     )
-                    .addOnFailureListener(
-                            e -> {
-                                Log.e(TAG, "populateImageView: Failed", e);
-                            }
-                    );
+                    .addOnFailureListener(e -> Log.e(TAG, "populateImageView: Failed", e));
         }
+
+        getSupportActionBar().setTitle(user.getFullName());
+
+        nameTV.setText(user.getFullName());
+        contactTV.setText(user.getContact());
+        locationTV.setText(user.getStreet());
+        webisteTV.setText(user.getWebsite());
 
     }
 
@@ -148,7 +155,7 @@ public class UserProfileActivity extends AppCompatActivity {
             startActivity(new Intent(this, LoginActivity.class));
             finish();
         } else {
-            getUserDetails(user.getUid());
+            getUserDetails();
         }
     }
 }

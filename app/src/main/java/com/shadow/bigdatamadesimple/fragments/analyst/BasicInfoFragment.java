@@ -74,7 +74,7 @@ public class BasicInfoFragment extends Fragment {
         profileCIV = view.findViewById(R.id.profile_civ);
         reccommendationsTV = view.findViewById(R.id.reccommendations_tv);
         hiresTV = view.findViewById(R.id.hires_tv);
-        hireBtn = view.findViewById(R.id.hire_btn);
+        hireBtn = view.findViewById(R.id.send_advert_btn);
         messageBtn = view.findViewById(R.id.message_btn);
         nameTV = view.findViewById(R.id.name_tv);
         contactTV = view.findViewById(R.id.contact_tv);

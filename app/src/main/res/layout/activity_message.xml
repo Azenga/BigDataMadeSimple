@@ -65,6 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:inputType="textImeMultiLine"
             android:layout_toLeftOf="@+id/send_msg_ib"
             android:background="@android:color/transparent"
             android:hint="@string/message_hint"

@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.shadow.bigdatamadesimple.adapters.ViewPagerAdapter;
 import com.shadow.bigdatamadesimple.fragments.AnalystsFragment;
-import com.shadow.bigdatamadesimple.fragments.BlogPostFragment;
+import com.shadow.bigdatamadesimple.fragments.AdvertsFragment;
 import com.shadow.bigdatamadesimple.fragments.ChatsFragment;
 import com.shadow.bigdatamadesimple.fragments.CompaniesFragment;
 
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new ChatsFragment(), "Chats");
-        adapter.addFragment(new BlogPostFragment(), "Posts");
+        adapter.addFragment(new AdvertsFragment(), "Adverts");
         if (mGroup.equals("company")) {
             adapter.addFragment(new AnalystsFragment(), "Analysts");
         } else if (mGroup.equals("analyst")) {

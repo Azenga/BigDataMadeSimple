@@ -41,6 +41,20 @@
         <item>Company</item>
     </string-array>
 
+    <string-array name="area_of_specifics_spinner">
+        <item>Enterprise Class Hadoop</item>
+        <item>Data Warehousing</item>
+        <item>HR Analytics</item>
+    </string-array>
+
+    <string-array name="available_job_types">
+        <item>Full Time Job</item>
+        <item>Contract</item>
+        <item>Part Time</item>
+        <item>One Time Project</item>
+        <item>Part Time Consultancy Only</item>
+    </string-array>
+
     <string name="sign_in_as">Sign In As</string>
     <string name="big_data_analyst">Big Data Analyst</string>
     <string name="company">Company</string>
@@ -58,13 +72,25 @@
     <string name="qualifications">The Big Data Analysts qualifications</string>
     <string name="rate_analyst">Rate Analyst</string>
     <string name="dummy_item">Dummy Item</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="image">Image</string>
     <string name="name">Name</string>
     <string name="contact">Contact</string>
     <string name="location">Location</string>
     <string name="website">Website</string>
+    <string name="add_preferences">Add More Preferences</string>
+    <string name="specific_prompt">Area of Specific</string>
+    <string name="work_remotely">Work Remotely</string>
+    <string name="job_type_prompt">Job Type</string>
+    <string name="countries_prompt">Countries To Work In</string>
+    <string name="save">Save</string>
+    <string name="specifics">Area Of Specifics</string>
+    <string name="job_type">Interested Job type</string>
+    <string name="countries">Countries</string>
+    <string name="interested_countries">Interested Countries</string>
+    <string name="work_remotely_indicator">Interested In Working Remotely</string>
+    <string name="advert_content">Advert Content ...</string>
+    <string name="add_advert">Add Advert</string>
+    <string name="duration">Duration in Weeks</string>
 
 </resources>

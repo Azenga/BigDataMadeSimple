@@ -247,5 +247,16 @@
 
         </LinearLayout>
 
+        <Button
+            android:id="@+id/goto_add_more_details_btn"
+            android:layout_width="256dp"
+            android:layout_height="wrap_content"
+            android:text="@string/add_preferences"
+            android:textAllCaps="false"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/btn_primary"
+            android:onClick="gotoAddMoreDetailsActivty"
+            android:textColor="@android:color/white" />
+
     </LinearLayout>
 </ScrollView>
